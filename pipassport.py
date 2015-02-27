@@ -10,9 +10,8 @@ Copyright (C) Open LX SP Ltd 2015 Andrew Robinson
 Contact: support@openlx.org.uk
 '''
 import json
-import urllib
-import urllib2
 import nxppy
+import requests
 
 
 DEFAULT_SERVER = 'api.pi-passport.net'
@@ -45,10 +44,10 @@ def request_user_info(apikey, cardid, server=DEFAULT_SERVER):
 '''
     url = ('http://{server}/transactions/user/?apikey={apikey}&'
            'cardid={cardid}&cardtype={cardtype}')
-    return json.load(urllib2.urlopen(url.format(server=server,
-                                                apikey=apikey,
-                                                cardid=cardid,
-                                                cardtype=CARD_TYPE)))
+    return requests.get(url.format(server=server,
+                                   apikey=apikey,
+                                   cardid=cardid,
+                                   cardtype=CARD_TYPE)).json
 
 
 def card_valid(data):
@@ -72,8 +71,7 @@ def post_transaction(apikey, cardid, data, server=DEFAULT_SERVER):
     '''
     url = ('http://{server}/transactions/{apikey}/add/'
            'cardtype/{cardtype}/cardid/{cardid}/')
-    return json.load(urllib2.urlopen(url.format(server=server,
-                                                apikey=apikey,
-                                                cardtype=CARD_TYPE,
-                                                cardid=cardid),
-                                     data=urllib.urlencode({'data': data})))
+    return requests.post(url.format(server=server,
+                                    apikey=apikey,
+                                    cardtype=CARD_TYPE,
+                                    cardid=cardid), data={'data': data}).json
