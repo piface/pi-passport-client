@@ -1,0 +1,16 @@
+Change Log
+==========
+
+v0.2.1
+------
+- Removed `json` import.
+
+
+v0.2.0
+------
+- Using requests library.
+
+
+v0.1.0
+------
+- Inital release.

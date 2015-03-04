@@ -7,11 +7,15 @@ Copyright (C) Open LX SP Ltd 2015 Andrew Robinson
                                   Amy Mather
                                   Thomas Preston
 
+Thanks for Charlotte Godley for suggesting the `requests` library.
+
 Contact: support@openlx.org.uk
 '''
-import json
 import nxppy
 import requests
+
+
+__version__ = '0.2.1'
 
 
 DEFAULT_SERVER = 'api.pi-passport.net'
@@ -47,7 +51,7 @@ def request_user_info(apikey, cardid, server=DEFAULT_SERVER):
     return requests.get(url.format(server=server,
                                    apikey=apikey,
                                    cardid=cardid,
-                                   cardtype=CARD_TYPE)).json
+                                   cardtype=CARD_TYPE)).json()
 
 
 def card_valid(data):
@@ -74,4 +78,4 @@ def post_transaction(apikey, cardid, data, server=DEFAULT_SERVER):
     return requests.post(url.format(server=server,
                                     apikey=apikey,
                                     cardtype=CARD_TYPE,
-                                    cardid=cardid), data={'data': data}).json
+                                    cardid=cardid), data={'data': data}).json()
